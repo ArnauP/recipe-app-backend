@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [ setup-github-actions ]
+  pull_request:
+    branches: [ setup-github-actions ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Start container
+        run: docker-compose run app sh -c "python manage.py test && flake8"
